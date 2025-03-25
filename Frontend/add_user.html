@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BlueMedix - Add User</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="navbar-container"></div>
+    <!-- Load Navbar -->
+    <script>
+        fetch('navbar.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('navbar-container').innerHTML = data;
+            })
+            .catch(error => console.error('Error loading navbar:', error));
+    </script>
+
+    <div class="container d-flex justify-content-center align-items-center vh-100">
+        <div class="col-md-6 col-lg-5 bg-light p-4 rounded shadow">
+            <h4 class="mb-3 text-center">Add User</h4>
+            <form id="userForm" class="needs-validation" novalidate>
+                <div class="mb-3">
+                    <label for="userId" class="form-label">User ID</label>
+                    <input type="text" class="form-control" id="userId" placeholder="Enter a unique ID" required>
+                    <div class="invalid-feedback">User ID is required.</div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="username" class="form-label">Username</label>
+                    <input type="text" class="form-control" id="username" required>
+                    <div class="invalid-feedback">Username is required.</div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="email" class="form-label">Email</label>
+                    <input type="email" class="form-control" id="email" required>
+                    <div class="invalid-feedback">Enter a valid email.</div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="phone" class="form-label">Phone Number</label>
+                    <input type="tel" class="form-control" id="phone" required pattern="^[0-9]{10}$">
+                    <div class="invalid-feedback">Please enter a valid 10-digit phone number.</div>
+                </div>
+
+                <button class="w-100 btn btn-dark" type="submit">Add User</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById("userForm").addEventListener("submit", function(event) {
+            event.preventDefault();
+            
+            const userId = document.getElementById("userId").value.trim();
+            const username = document.getElementById("username").value.trim();
+            const email = document.getElementById("email").value.trim();
+            const phone = document.getElementById("phone").value.trim();
+        
+            let formValid = true;
+        
+            if (!userId) {
+                document.getElementById("userId").classList.add("is-invalid");
+                formValid = false;
+            } else {
+                document.getElementById("userId").classList.remove("is-invalid");
+            }
+            if (!username) {
+                document.getElementById("username").classList.add("is-invalid");
+                formValid = false;
+            } else {
+                document.getElementById("username").classList.remove("is-invalid");
+            }
+            if (!email) {
+                document.getElementById("email").classList.add("is-invalid");
+                formValid = false;
+            } else {
+                document.getElementById("email").classList.remove("is-invalid");
+            }
+            const phonePattern = /^[0-9]{10}$/;
+            if (!phone || !phonePattern.test(phone)) {
+                document.getElementById("phone").classList.add("is-invalid");
+                formValid = false;
+            } else {
+                document.getElementById("phone").classList.remove("is-invalid");
+            }
+        
+            if (formValid) {
+                let users = JSON.parse(localStorage.getItem("users")) || [];
+        
+                if (users.some(user => user.id === userId)) {
+                    alert("User ID already exists. Please enter a unique ID.");
+                    return;
+                }
+        
+                users.push({ id: userId, username, email, phone });
+                localStorage.setItem("users", JSON.stringify(users));
+        
+                // Dispatch a storage event to notify other pages
+                window.dispatchEvent(new Event("storage"));
+        
+                alert("User added successfully!");
+                document.getElementById("userForm").reset();
+            }
+        });        
+    </script>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+</body>
+</html>

@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BlueMedix</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="navbar-container"></div>
+  <script>
+    fetch('navbar.html')
+        .then(response => response.text())
+        .then(data => {
+            document.getElementById('navbar-container').innerHTML = data;
+        })
+        .catch(error => console.error('Error loading navbar:', error));
+</script>
+
+    <div class="container d-flex justify-content-center align-items-center">
+        <div class="col-md-6 col-lg-5 bg-light p-4 rounded shadow">
+            <h4 class="mb-3 text-center">Add Product</h4>
+            <form id="product-form" class="needs-validation" novalidate>
+                <div class="row g-3">
+                    <div class="col-12">
+                        <label for="id" class="form-label">Product ID</label>
+                        <input type="number" class="form-control" id="id" placeholder="Enter Product ID" required>
+                        <div class="invalid-feedback">Product ID is required.</div>
+                    </div>
+
+                    <div class="col-12">
+                        <label for="title" class="form-label">Title</label>
+                        <input type="text" class="form-control" id="title" placeholder="Enter Product Title" required>
+                        <div class="invalid-feedback">Title is required.</div>
+                    </div>
+
+                    <div class="col-12">
+                        <label for="price" class="form-label">Price ($)</label>
+                        <input type="number" step="0.01" class="form-control" id="price" placeholder="Enter Price" required>
+                        <div class="invalid-feedback">Valid price is required.</div>
+                    </div>
+
+                    <div class="col-12">
+                        <label for="description" class="form-label">Description</label>
+                        <textarea class="form-control" id="description" rows="3" placeholder="Enter Product Description" required></textarea>
+                        <div class="invalid-feedback">Description is required.</div>
+                    </div>
+
+                    <div class="col-12">
+                        <label for="category" class="form-label">Category</label>
+                        <input type="text" class="form-control" id="category" placeholder="Enter Product Category" required>
+                        <div class="invalid-feedback">Category is required.</div>
+                    </div>
+
+                    <div class="col-12">
+                        <label for="image" class="form-label">Image URL</label>
+                        <input type="url" class="form-control" id="image" placeholder="http://example.com" required>
+                        <div class="invalid-feedback">Valid image URL is required.</div>
+                    </div>
+                </div>
+
+                <button class="w-100 btn btn-dark" type="submit">Submit</button>
+            </form>
+        </div>
+    </div>
+
+<script>
+    document.querySelector("form").addEventListener("submit", function (event) {
+        event.preventDefault();
+    
+        if (!this.checkValidity()) {
+            this.classList.add("was-validated");
+            return;
+        }
+    
+        let product = {
+            id: document.getElementById("id").value.trim(),
+            title: document.getElementById("title").value.trim(),
+            price: parseFloat(document.getElementById("price").value),
+            description: document.getElementById("description").value.trim(),
+            category: document.getElementById("category").value.trim(),
+            image: document.getElementById("image").value.trim()
+        };
+        let products = JSON.parse(localStorage.getItem("products")) || [];
+        products.push(product);
+        localStorage.setItem("products", JSON.stringify(products));
+        alert("Product added successfully!");
+        window.location.href = "products.html"; 
+    });
+    
+</script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.2/papaparse.min.js"></script>
+</body>
+</html>

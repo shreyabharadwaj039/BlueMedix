@@ -1,0 +1,91 @@
+    @import url('https://fonts.googleapis.com/css2?family=Pinyon+Script&family=Roboto+Serif:ital,opsz,wght@0,8..144,100..900;1,8..144,100..900&family=Roboto+Slab:wght@100..900&display=swap');
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+    .nav-pills .nav-link.active {
+        background-color: rgb(59, 57, 57);
+        opacity: 80%; 
+        color: white;           
+    }
+      .nav-pills .nav-link {
+        color: black;   
+        font-weight: 500;
+    
+    }
+    
+    .logo {
+        font-family: 'Pinyon Script', cursive; 
+        font-size: 30px; 
+        font-weight: 400; 
+        color: #4c4a4a;
+        font-weight: bolder;
+        padding-top: 20px;
+    }
+    .navbar-container {
+        background-color: rgba(0, 0, 0, 0.5); 
+        padding: 10px 20px;
+        border-radius: 10px;
+    }
+    .nav-item img {
+        transition: transform 0.3s ease; 
+    }
+    
+    .nav-item img:hover {
+        transform: scale(1.75); 
+    }
+    .social-media-container{
+        display: flex;
+    }
+    
+    @media (min-width: 992px) {
+        .navbar-toggler {
+            display: none;
+        }
+        
+        #navbarContent {
+            display: flex !important;
+        }
+    }
+        @media (max-width: 991px) {
+        #pillNav2 {
+            flex-direction: column;
+            width: 100%;
+        }
+    
+        .nav-item {
+            width: 100%;
+            margin: 5px 0;
+        }
+    
+        .social-media-container {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 10px;
+        }
+        #navbarContent{
+            background-color: rgb(142, 141, 141);
+            opacity: 80%;
+            border-radius: 5%;
+        }
+    }
+
+table{
+    padding-top: 30px;
+}
+.product-img {
+    width: 120px; 
+    height: auto;  
+    border-radius: 10px; 
+    box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.2); 
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+.product-img:hover {
+    transform: scale(1.1); 
+    box-shadow: 4px 4px 12px rgba(0, 0, 0, 0.3); 
+}
+
+
