@@ -1,0 +1,1 @@
+EXPLAIN ANALYZE SELECT * FROM Orders WHERE user_id = 10;
